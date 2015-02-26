@@ -139,4 +139,18 @@ This can be a particular problem if your code interprets `f.bar` in a boolean co
     False
 
 Then we don't have to change all the callers!
-  
+
+#### What is the deal with .pyc files‽
+
+There is a good description of [compiled Python] in the Python docs site, but here are the highlights:
+
+* When a a .py file is imported, a coresponding .pyc is created.
+* When a .py file is executed directly by the `python` interpreter, no .pyc is created.
+* If a .pyc file is up to date (i.e., created since the corresponding .py was changed), it will be used to do the import rather than the .py.
+* Though larger (at least sometimes), a .pyc file is faster to load than its corresponding .py file. However, once loaded, it doesn't run the program any faster. I don't know why .pyc files aren't created for files executed directly by the interpreter, but you can always move functionality to modules which you import if it's taking too long to load.
+
+[compiled Python]: https://docs.python.org/2/tutorial/modules.html#compiled-python-files
+
+Really, the entire documentation [Python modules] is very important and not too long or complicated to read, so I'd recommend that.
+
+[Python modules]: https://docs.python.org/2/tutorial/modules.html
