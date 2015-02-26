@@ -44,6 +44,7 @@ Then, once you are in pdb you'll get a happy little `(pdb)` prompt from which yo
 6. `c`: **c**ontinue until the next breakpoint or the program stops naturally
 
 Basically I work like this:
+
 1. **L**ist the source to find the line number I'm curious about.
 2. Set a **b**reakpoint there and **c**ontinue until I hit it.
 3. **P**rint out some variables to see what the state of the program is.
