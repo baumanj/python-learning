@@ -34,14 +34,14 @@ right where you want it to stop. Otherwise, if you want to see the flow from the
 
     python -m pdb myscript.py
  
-Then, once you are in pdb you'll get a happy little `(pdb)` prompt from which you can look at the code line by line and examine the values of variables (or even change them). 95% of these 6 commands:
+Then, once you are in pdb you'll get a happy little `(pdb)` prompt from which you can look at the code line by line and examine the values of variables (or even change them). 95% of the time, all I use are these 6 commands:
 
-1. l [number]: **l**ist the code around line _number_ or continue from last list command
-2. n: go to the **n**ext line
-3. s: **s**tep into the function if the next line is a function call
-4. b [number or name]: **b**reak (i.e., stop) at line _number_ or function _name_
-5. p _expression_: **p**rint the value of the expression
-6. c: **c**ontinue until the next breakpoint or the program stops naturally
+1. `l [number]`: **l**ist the code around line _number_ or continue from last list command
+2. `n`: go to the **n**ext line
+3. `s`: **s**tep into the function if the next line is a function call
+4. `b [number or name]`: **b**reak (i.e., stop) at line _number_ or function _name_
+5. `p expression`: **p**rint the value of the expression
+6. `c`: **c**ontinue until the next breakpoint or the program stops naturally
 
 Basically I work like this:
 1. **L**ist the source to find the line number I'm curious about.
