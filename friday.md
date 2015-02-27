@@ -26,7 +26,49 @@ The most pervasive use of stacks in programming is for keeping track of program 
 
 I've edited out some things for clarity, but we can see the sequence of calls from oldest at the top to newest at the bottom. Somewhat confusingly, the bottom of the trace (`get_answer()`) is the "top" of the stack in that it was the last thing added to the stack, and so will be the first thing removed when it returns and the data associated with it (`args` and `links` and the knowledge to return to line 184 inside of `get_instructions()`) is popped off the stack.
 
-## Generators and co-routines
+## Generators and coroutines
+
+Generators are really just functions (or methods) that contain `yield` statements. There's a good [explanation of the details](https://docs.python.org/2/tutorial/classes.html#generators) on the Python docs site, but the basics are just:
+
+1. If a function has a `yield` statement in it, calling that function just returns a generator object without actually running any of the code inside the function.
+2. Add a `yield foo` statement when you want to return a value to the caller's `next()` call. The `next()` call is implicitly used to assign the `x` in the `for x in y` Python construct.
+3. After a `yeild` statement, control returns to the code that called `next()` until the subsequent `next()` call.
+4. If the end of the generator function or method is reached, a `StopIteration` exception is raised. This is caught by the `for x in y` construct, so there's no need to worry about it, unless you're calling `next()` explicitly.
+
+Generators are a pretty simple way to get multiple different return values out of a single function when you ask it repeatedly. However, the `next()` call doesn't take any parameters. So, what if you wanted to do something fancier, where you passed some data in? Enter coroutines and the `send()` method.
+
+How and why you would use coroutines is fairly involved, but you can read the [Wikipedia page on coroutines](http://en.wikipedia.org/wiki/Coroutine) if you are interested. As to _how_ to use them in Python, it's not so different from a generator. The same rules about returning a generator object apply, but there are some new wrinkles:
+
+1. The `yield` statement can now have a return value.
+2. In addition to calling `next()` on the generator object, you can now also call `send(foo)` with an arbitrary argument `foo`. Inside the generator, the value of the corresponding `yield` expression will be `foo`.
+3. Because of reasons, you must first call either `next()` or `send(None)` on the generator object before calling `send(foo)` on it. There is more explanation of that in [PEP 342: Coroutines via Enhanced Generators](https://www.python.org/dev/peps/pep-0342/).
+
+Here's an example of using `send()`:
+
+    def i_am_a_generator():
+        print "Before first yield"
+        y1 = yield
+        print "After first yield, y1 = %s" % y1
+        y2 = yield
+        print "After second yield, y2 = %s" % y2
+
+    >>> import generators
+    >>> g = generators.i_am_a_generator()
+    >>> g.send("Hi!")
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    TypeError: can't send non-None value to a just-started generator
+    >>> g.send(None) # calling g.next() would be equavalent
+    Before first yield
+    >>> g.send("Yo!")
+    After first yield, y1 = Yo!
+    >>> g.send(42)
+    After second yield, y2 = 42
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    StopIteration
+
+https://docs.python.org/2/reference/expressions.html#generator-iterator-methods
 
 ## Practical Python knowledge (continued)
 
