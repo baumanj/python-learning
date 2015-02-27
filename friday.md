@@ -41,7 +41,7 @@ How and why you would use coroutines is fairly involved, but you can read the [W
 
 1. The `yield` statement can now have a return value.
 2. In addition to calling `next()` on the generator object, you can now also call `send(foo)` with an arbitrary argument `foo`. Inside the generator, the value of the corresponding `yield` expression will be `foo`.
-3. Because of reasons, you must first call either `next()` or `send(None)` on the generator object before calling `send(foo)` on it. There is more explanation of that in [PEP 342: Coroutines via Enhanced Generators](https://www.python.org/dev/peps/pep-0342/).
+3. Because of reasons, you must first call either `next()` or `send(None)` on the generator object before calling `send(foo)` on it. There is more explanation of that in the [docs on generator iterator methods](https://docs.python.org/2/reference/expressions.html#generator-iterator-methods) and [PEP 342: Coroutines via Enhanced Generators](https://www.python.org/dev/peps/pep-0342/).
 
 Here's an example of using `send()`:
 
@@ -66,9 +66,6 @@ Here's an example of using `send()`:
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
     StopIteration
-    >>> 
-
-https://docs.python.org/2/reference/expressions.html#generator-iterator-methods
 
 ## Practical Python knowledge (continued)
 
