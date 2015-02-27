@@ -45,28 +45,28 @@ How and why you would use coroutines is fairly involved, but you can read the [W
 
 Here's an example of using `send()`:
 
-    def i_am_a_generator():
-        print "Before first yield"
-        y1 = yield
-        print "After first yield, y1 = %s" % y1
-        y2 = yield
-        print "After second yield, y2 = %s" % y2
-
-    >>> import generators
-    >>> g = generators.i_am_a_generator()
-    >>> g.send("Hi!")
+    >>> def i_am_a_generator():
+    ...     print "Before first yield"
+    ...     y1 = yield
+    ...     print "After first yield, y1 = %s" % y1
+    ...     y2 = yield
+    ...     print "After second yield, y2 = %s" % y2
+    ... 
+    >>> g = i_am_a_generator()
+    >>> g.send("Hello!")
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
     TypeError: can't send non-None value to a just-started generator
-    >>> g.send(None) # calling g.next() would be equavalent
+    >>> g.send(None) # calling g.next() would be equivalent
     Before first yield
-    >>> g.send("Yo!")
-    After first yield, y1 = Yo!
     >>> g.send(42)
-    After second yield, y2 = 42
+    After first yield, y1 = 42
+    >>> g.send(['red', 'white', 'blue'])
+    After second yield, y2 = ['red', 'white', 'blue']
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
     StopIteration
+    >>> 
 
 https://docs.python.org/2/reference/expressions.html#generator-iterator-methods
 
