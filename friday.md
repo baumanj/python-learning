@@ -145,3 +145,63 @@ This can be a particular problem if your code interprets `f.bar` in a boolean co
     False
 
 Then we don't have to change all the callers!
+
+These last few are from Stack Overflow's [hidden features of Python](http://stackoverflow.com/questions/101268/hidden-features-of-python) question:
+
+#### Be careful with mutable default arguments
+
+    >>> def foo(x=[]):
+    ...     x.append(1)
+    ...     print x
+    ... 
+    >>> foo()
+    [1]
+    >>> foo()
+    [1, 1]
+    >>> foo()
+    [1, 1, 1]
+
+Instead, you should use a sentinel value denoting "not given" and replace with the mutable you'd like as default:
+
+    >>> def foo(x=None):
+    ...     if x is None:
+    ...         x = []
+    ...     x.append(1)
+    ...     print x
+    >>> foo()
+    [1]
+    >>> foo()
+    [1]
+
+#### Function argument unpacking
+
+You can unpack a list or a dictionary as function arguments using * and **.
+
+For example:
+
+    def draw_point(x, y):
+        # do some magic
+
+    point_foo = (3, 4)
+    point_bar = {'y': 3, 'x': 2}
+
+    draw_point(*point_foo)
+    draw_point(**point_bar)
+    
+Very useful shortcut since lists, tuples and dicts are widely used as containers.
+
+#### Chaining comparison operators:
+
+    >>> x = 5
+    >>> 1 < x < 10
+    True
+    >>> 10 < x < 20 
+    False
+    >>> x < 10 < x*10 < 100
+    True
+    >>> 10 > x <= 9
+    True
+    >>> 5 == x > 4
+    True
+
+In case you're thinking it's doing 1 < x, which comes out as True, and then comparing True < 10, which is also True, then no, that's really not what happens (see the last example.) It's really translating into 1 < x and x < 10, and x < 10 and 10 < x * 10 and x*10 < 100, but with less typing and each term is only evaluated once.
