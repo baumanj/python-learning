@@ -85,7 +85,7 @@ That is something I type often because I can never remember the name of `random.
 
 For more detailed information, [docs.python.org](https://docs.python.org) is the place to go. One thing to be careful of is what version of documentation you're looking at. At Isilon, we use 2.6.1. Your computers likely have 2.7.x installed.
 
-Of course, don't forget your old friends Goolse and Stack Overflow for answers to specicifc questions. Python's "explicit is better" philosophy does have the benefit of making it quite googlable.
+Of course, don't forget your old friends Google and Stack Overflow for answers to specicifc questions. Python's "explicit is better" philosophy does have the benefit of making it quite googlable.
 
 ### The standard library functionality that you should be aware of
 
@@ -108,9 +108,9 @@ Other modules in the standard library that I've found useful, but that I wouldn'
 * `pprint`: Pretty-printing; great for dicts and such
 * `random`: Generate random numbers, select random samples, etc
 * `fileinput`: A handy way to write a script that reads from file arguments or standard input
-* `pickle`: Save objects to a file and read them back automagically
+* `pickle`: Save objects to a file and read them back automagically (or maybe just use json)
 * `csv`: Access comma-separated value files
-* `popen2`: For running shell commands
+* `subprocess`: For running shell commands
 
 ### Random handy things
 
